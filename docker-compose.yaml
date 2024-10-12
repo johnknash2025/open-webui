@@ -2,6 +2,7 @@ services:
   ollama:
     volumes:
       - ollama:/root/.ollama
+      - /Users/keigofukumoto/.ollama/models:/root/.ollama/models:rw
     container_name: ollama
     pull_policy: always
     tty: true
@@ -15,7 +16,7 @@ services:
         OLLAMA_BASE_URL: '/ollama'
       dockerfile: Dockerfile
     image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    container_name: open-webui-compose
     volumes:
       - open-webui:/app/backend/data
     depends_on:

@@ -8,6 +8,13 @@ services:
     tty: true
     restart: unless-stopped
     image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
+    deploy:
+      resources:
+        limits:
+          memory: 16g  # メモリを16GBに設定
+    networks:
+      - docker_default  # ネットワークの指定
+
 
   open-webui:
     build:
@@ -29,7 +36,13 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+    networks:
+      - docker_default  # ネットワークの指定
+
 
 volumes:
   ollama: {}
   open-webui: {}
+
+networks:
+  docker_default:  # docker_defaultネットワークの定義
